@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DeepTownCalculator.Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DeepTownCalculator.API.Controllers
 {
@@ -6,8 +7,10 @@ namespace DeepTownCalculator.API.Controllers
     [Route("[controller]")]
     public class CalculatorController : BaseController<CalculatorController>
     {
-        public CalculatorController(ILogger<CalculatorController> logger) : base(logger)
+        private readonly ICalculatorService calculatorService;
+        public CalculatorController(ILogger<CalculatorController> logger, ICalculatorService calculatorService) : base(logger)
         {
+            this.calculatorService = calculatorService;
         }
     }
 }
