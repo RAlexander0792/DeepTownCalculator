@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DeepTownCalculator.Application\DeepTownCalculator.Application.csproj" />
+    <ProjectReference Include="..\DeepTownCalculator.Data.File\DeepTownCalculator.Data.File.csproj" />
   </ItemGroup>
 
 </Project>
