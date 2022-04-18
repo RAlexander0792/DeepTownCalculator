@@ -25,7 +25,6 @@ namespace DeepTownCalculator.Application
 
             CalculateExtractorsRPM(resDict, request.Extractors);
 
-
             return resDict.ToList().Select(x => x.Value).ToList();
         }
 
@@ -38,26 +37,32 @@ namespace DeepTownCalculator.Application
             {
                 var area = coveredAreas.First(x => x.AreaNumber == extractorReq.Area);
                 var extractor = allExtractors.First(x => extractorReq.Level == x.Level && x.ExtractorType == extractorReq.Type);
-                switch (extractorReq.Type)
-                {
-                    case ExtractorType.Mine:
-                        foreach (var resource in area.Resources)
-                            AddToDictionary(resDict, new ItemResultEntity { ItemId = resource.Item2.Id, RPM = ExtractorTypeMineRPMPerc(resource.Item1, extractor.RPM) });
-                    break;
-                    case ExtractorType.Chemistry:
-                    case ExtractorType.Oil:
-                        if (extractorReq.ItemId != Guid.Empty)
-                            AddToDictionary(resDict, new ItemResultEntity { RPM = extractor?.RPM ?? 0, ItemId = extractorReq.ItemId});
-                    break;
-                }
+                CalculateExtractorRPMByType(resDict, extractorReq, area, extractor);
             }
-
         }
-        private void AddToDictionary(Dictionary<Guid, ItemResultEntity> resDict, ItemResultEntity ItemResultEntity)
+        private void CalculateExtractorRPMByType(Dictionary<Guid, ItemResultEntity> resDict, Extractor extractorReq, AreaEntity area, ExtractorEntity extractor)
         {
-            if (resDict.TryGetValue(ItemResultEntity.ItemId, out ItemResultEntity? savedRPM))
+            switch (extractorReq.Type)
             {
-                savedRPM.RPM = ItemResultEntity.RPM;
+                case ExtractorType.Mine:
+                    foreach (var resource in area.Resources)
+                        AddToDictionary(resDict, new ItemResultEntity { ItemId = resource.Item2.Id, RPM = ExtractorTypeMineRPMPerc(resource.Item1, extractor.RPM) });
+                    break;
+                case ExtractorType.Chemistry:
+                case ExtractorType.Oil:
+                    if (extractorReq.ItemId != Guid.Empty)
+                        AddToDictionary(resDict, new ItemResultEntity { RPM = extractor?.RPM ?? 0, ItemId = extractorReq.ItemId });
+                    break;
+            }
+        }
+        private void AddToDictionary(Dictionary<Guid, ItemResultEntity> resDict, ItemResultEntity itemResultEntity)
+        {
+            if (resDict.TryGetValue(itemResultEntity.ItemId, out ItemResultEntity? savedRPM))
+            {
+                savedRPM.RPM += itemResultEntity.RPM;
+            } else
+            {
+                resDict.Add(itemResultEntity.ItemId, itemResultEntity);
             }
         }
         private decimal ExtractorTypeMineRPMPerc(int perc, decimal RPM)

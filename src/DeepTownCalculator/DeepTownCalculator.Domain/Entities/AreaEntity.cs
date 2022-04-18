@@ -7,6 +7,10 @@
         public bool Oil { get; set; }
         public IEnumerable<(int, ItemEntity)> Resources { get; set; }
 
+        public AreaEntity()
+        {
+            Resources = new List<(int, ItemEntity)>();
+        }
         public AreaEntity(IEnumerable<(int, ItemEntity)> resources)
         {
             Resources = resources;
