@@ -9,7 +9,12 @@ namespace DeepTownCalculator.Application
     public record Crafter (int RecipeId, int BuildingId);
     public record InventoryItem (int ItemId, int Quantity);
     public record Bot (int BuildingId, BotAction Action);
-    public record CalcRequest (IEnumerable<Extractor> Extractors, IEnumerable<Crafter> Crafters, IEnumerable<InventoryItem> Inventory);
+    public record CalcRequest (
+        IEnumerable<Extractor> Extractors, 
+        IEnumerable<Crafter> Crafters, 
+        IEnumerable<InventoryItem> Inventory,
+        IEnumerable<TechLabBoost> TechManagBoosts
+        );
     public class CalculatorService : ICalculatorService
     {
         private readonly IAreaRepository areaRepository;
@@ -23,12 +28,12 @@ namespace DeepTownCalculator.Application
         {
             var resDict = new Dictionary<Guid, ItemResultEntity> ();
 
-            CalculateExtractorsRPM(resDict, request.Extractors);
+            CalculateExtractorsRPM(resDict, request.Extractors, request.TechManagBoosts);
 
             return resDict.ToList().Select(x => x.Value).ToList();
         }
 
-        private void CalculateExtractorsRPM(Dictionary<Guid, ItemResultEntity> resDict, IEnumerable<Extractor> extractors)
+        private void CalculateExtractorsRPM(Dictionary<Guid, ItemResultEntity> resDict, IEnumerable<Extractor> extractors, IEnumerable<TechLabBoost> boosts)
         {
             var coveredAreas = areaRepository.Get(extractors.Select(x => x.Area));
             var allExtractors = extractorsRepository.GetAll();
@@ -37,16 +42,16 @@ namespace DeepTownCalculator.Application
             {
                 var area = coveredAreas.First(x => x.AreaNumber == extractorReq.Area);
                 var extractor = allExtractors.First(x => extractorReq.Level == x.Level && x.ExtractorType == extractorReq.Type);
-                CalculateExtractorRPMByType(resDict, extractorReq, area, extractor);
+                CalculateExtractorRPMByType(resDict, extractorReq, area, extractor, boosts);
             }
         }
-        private void CalculateExtractorRPMByType(Dictionary<Guid, ItemResultEntity> resDict, Extractor extractorReq, AreaEntity area, ExtractorEntity extractor)
+        private void CalculateExtractorRPMByType(Dictionary<Guid, ItemResultEntity> resDict, Extractor extractorReq, AreaEntity area, ExtractorEntity extractor, IEnumerable<TechLabBoost> boosts)
         {
             switch (extractorReq.Type)
             {
                 case ExtractorType.Mine:
                     foreach (var resource in area.Resources)
-                        AddToDictionary(resDict, new ItemResultEntity { ItemId = resource.Item2.Id, RPM = ExtractorTypeMineRPMPerc(resource.Item1, extractor.RPM) });
+                        AddToDictionary(resDict, new ItemResultEntity { ItemId = resource.Item2.Id, RPM = ExtractorTypeMineRPMPerc(resource.Item1, extractor.RPM, boosts.Any(x => x == TechLabBoost.ExtractingBoost)) });
                     break;
                 case ExtractorType.Chemistry:
                 case ExtractorType.Oil:
@@ -65,10 +70,11 @@ namespace DeepTownCalculator.Application
                 resDict.Add(itemResultEntity.ItemId, itemResultEntity);
             }
         }
-        private decimal ExtractorTypeMineRPMPerc(int perc, decimal RPM)
+        private decimal ExtractorTypeMineRPMPerc(int perc, decimal RPM, bool techLabBoost)
         {
-            //if (boosts.Any(e => e == 7)) rpmPercentage *= 2;
-            return Decimal.Round(((decimal)perc / (decimal)100) * RPM, 2);
+            var RPMperc = ((decimal)perc / (decimal)100) * RPM;
+            if (techLabBoost) RPMperc *= 2;
+            return Decimal.Round(RPMperc, 2);
         }
     }
 }
