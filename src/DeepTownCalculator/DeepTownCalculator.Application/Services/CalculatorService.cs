@@ -19,10 +19,12 @@ namespace DeepTownCalculator.Application
     {
         private readonly IAreaRepository areaRepository;
         private readonly IExtractorsRepository extractorsRepository;
-        public CalculatorService(IAreaRepository areaRepository, IExtractorsRepository extractorsRepository)
+        private readonly IRecipesRepository recipesRepository;
+        public CalculatorService(IAreaRepository areaRepository, IExtractorsRepository extractorsRepository, IRecipesRepository recipesRepository)
         {
             this.areaRepository = areaRepository;
             this.extractorsRepository = extractorsRepository;
+            this.recipesRepository = recipesRepository;
         }
         public List<ItemResultEntity> CalculateRPM (CalcRequest request)
         {
