@@ -2,7 +2,7 @@
 {
     public class AreaEntity
     {
-        public int AreaID { get; set; }
+        public int Id { get; set; }
         public int AreaNumber { get; set; }
         public bool Oil { get; set; }
         public IEnumerable<(int, ItemEntity)> Resources { get; set; }

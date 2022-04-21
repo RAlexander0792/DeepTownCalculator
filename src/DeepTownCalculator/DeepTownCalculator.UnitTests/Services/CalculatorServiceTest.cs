@@ -23,7 +23,7 @@ namespace DeepTownCalculator.UnitTests.Services
 
             List<AreaEntity> areaEntities = new List<AreaEntity>() {
                 new AreaEntity { 
-                        AreaID = 1,
+                        Id = 1,
                         AreaNumber = 1,
                         Oil = false,
                         Resources = new List<(int, ItemEntity)> () {
@@ -59,13 +59,13 @@ namespace DeepTownCalculator.UnitTests.Services
                 ));
             #endregion Act
             #region Assert
-            Assert.IsTrue(result.Any(x => x.ItemId == Item1Id), "Item 1 not included in result");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item2Id), "Item 2 not included in result");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item3Id), "Item 3 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item1Id), "Item 1 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item2Id), "Item 2 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item3Id), "Item 3 not included in result");
 
-            Assert.IsTrue(result.Any(x => x.ItemId == Item1Id && x.RPM == 1.0m), "Item 1 doesn't have correct RPM");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item2Id && x.RPM == 0.5m), "Item 2 doesn't have correct RPM");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item3Id && x.RPM == 0.5m), "Item 3 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item1Id && x.RPM == 1.0m), "Item 1 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item2Id && x.RPM == 0.5m), "Item 2 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item3Id && x.RPM == 0.5m), "Item 3 doesn't have correct RPM");
 
             #endregion Assert
         }
@@ -83,7 +83,7 @@ namespace DeepTownCalculator.UnitTests.Services
 
             List<AreaEntity> areaEntities = new List<AreaEntity>() {
                 new AreaEntity {
-                        AreaID = 1,
+                        Id = 1,
                         AreaNumber = 1,
                         Oil = false,
                         Resources = new List<(int, ItemEntity)> () {
@@ -92,14 +92,14 @@ namespace DeepTownCalculator.UnitTests.Services
                                     (25, new ItemEntity { Id = Item3Id, Name = "", Price = 0 })
                 }},
                 new AreaEntity {
-                        AreaID = 2,
+                        Id = 2,
                         AreaNumber = 2,
                         Oil = false,
                         Resources = new List<(int, ItemEntity)> () {
                                     (100, new ItemEntity { Id = Item1Id, Name = "", Price = 0 }),
                 }},
                 new AreaEntity {
-                        AreaID = 3,
+                        Id = 3,
                         AreaNumber = 3,
                         Oil = false,
                         Resources = new List<(int, ItemEntity)> () {
@@ -141,17 +141,17 @@ namespace DeepTownCalculator.UnitTests.Services
                 ));
             #endregion Act
             #region Assert
-            Assert.IsTrue(result.Any(x => x.ItemId == Item1Id), "Item 1 not included in result");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item2Id), "Item 2 not included in result");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item3Id), "Item 3 not included in result");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item4Id), "Item 4 not included in result");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item5Id), "Item 5 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item1Id), "Item 1 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item2Id), "Item 2 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item3Id), "Item 3 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item4Id), "Item 4 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item5Id), "Item 5 not included in result");
 
-            Assert.IsTrue(result.Any(x => x.ItemId == Item1Id && x.RPM == 1.0m + 4.0m), "Item 1 doesn't have correct RPM");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item2Id && x.RPM == 0.5m), "Item 2 doesn't have correct RPM");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item3Id && x.RPM == 0.5m + 0.66m), "Item 3 doesn't have correct RPM");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item4Id && x.RPM == 0.66m), "Item 4 doesn't have correct RPM");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item5Id && x.RPM == 0.66m), "Item 5 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item1Id && x.RPM == 1.0m + 4.0m), "Item 1 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item2Id && x.RPM == 0.5m), "Item 2 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item3Id && x.RPM == 0.5m + 0.66m), "Item 3 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item4Id && x.RPM == 0.66m), "Item 4 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item5Id && x.RPM == 0.66m), "Item 5 doesn't have correct RPM");
             #endregion Assert
         }
 
@@ -170,7 +170,7 @@ namespace DeepTownCalculator.UnitTests.Services
 
             List<AreaEntity> areaEntities = new List<AreaEntity>() {
                 new AreaEntity {
-                        AreaID = 1,
+                        Id = 1,
                         AreaNumber = 1,
                         Oil = false,
                         Resources = new List<(int, ItemEntity)> () {
@@ -179,14 +179,14 @@ namespace DeepTownCalculator.UnitTests.Services
                                     (25, new ItemEntity { Id = Item3Id, Name = "", Price = 0 })
                 }},
                 new AreaEntity {
-                        AreaID = 2,
+                        Id = 2,
                         AreaNumber = 2,
                         Oil = false,
                         Resources = new List<(int, ItemEntity)> () {
                                     (100, new ItemEntity { Id = Item1Id, Name = "", Price = 0 }),
                 }},
                 new AreaEntity {
-                        AreaID = 3,
+                        Id = 3,
                         AreaNumber = 3,
                         Oil = false,
                         Resources = new List<(int, ItemEntity)> () {
@@ -228,17 +228,17 @@ namespace DeepTownCalculator.UnitTests.Services
                 ));
             #endregion Act
             #region Assert
-            Assert.IsTrue(result.Any(x => x.ItemId == Item1Id), "Item 1 not included in result");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item2Id), "Item 2 not included in result");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item3Id), "Item 3 not included in result");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item4Id), "Item 4 not included in result");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item5Id), "Item 5 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item1Id), "Item 1 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item2Id), "Item 2 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item3Id), "Item 3 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item4Id), "Item 4 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item5Id), "Item 5 not included in result");
 
-            Assert.IsTrue(result.Any(x => x.ItemId == Item1Id && x.RPM == (1.0m + 4.0m) * 2), "Item 1 doesn't have correct RPM");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item2Id && x.RPM == (0.5m) * 2), "Item 2 doesn't have correct RPM");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item3Id && x.RPM == (0.5m + 0.66m) * 2), "Item 3 doesn't have correct RPM");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item4Id && x.RPM == (0.66m) * 2), "Item 4 doesn't have correct RPM");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item5Id && x.RPM == (0.66m) * 2), "Item 5 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item1Id && x.RPM == (1.0m + 4.0m) * 2), "Item 1 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item2Id && x.RPM == (0.5m) * 2), "Item 2 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item3Id && x.RPM == (0.5m + 0.66m) * 2), "Item 3 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item4Id && x.RPM == (0.66m) * 2), "Item 4 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item5Id && x.RPM == (0.66m) * 2), "Item 5 doesn't have correct RPM");
             #endregion Assert
         }
         [Test]
@@ -258,7 +258,7 @@ namespace DeepTownCalculator.UnitTests.Services
 
             List<AreaEntity> areaEntities = new List<AreaEntity>() {
                 new AreaEntity {
-                        AreaID = 1,
+                        Id = 1,
                         AreaNumber = 1,
                         Oil = false,
                         Resources = new List<(int, ItemEntity)> () {
@@ -298,15 +298,15 @@ namespace DeepTownCalculator.UnitTests.Services
                 ));
             #endregion Act
             #region Assert
-            Assert.IsTrue(result.Any(x => x.ItemId == Item1Id), "Item 1 not included in result");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item2Id), "Item 2 not included in result");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item3Id), "Item 3 not included in result");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item4Id), "Item 4 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item1Id), "Item 1 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item2Id), "Item 2 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item3Id), "Item 3 not included in result");
+            Assert.IsTrue(result.Any(x => x.Id == Item4Id), "Item 4 not included in result");
 
-            Assert.IsTrue(result.Any(x => x.ItemId == Item1Id && x.RPM == (1.0m + 4.0m)), "Item 1 doesn't have correct RPM");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item2Id && x.RPM == 0.5m), "Item 2 doesn't have correct RPM");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item3Id && x.RPM == 0.5m), "Item 3 doesn't have correct RPM");
-            Assert.IsTrue(result.Any(x => x.ItemId == Item4Id && x.RPM == 2), "Item 4 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item1Id && x.RPM == (1.0m + 4.0m)), "Item 1 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item2Id && x.RPM == 0.5m), "Item 2 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item3Id && x.RPM == 0.5m), "Item 3 doesn't have correct RPM");
+            Assert.IsTrue(result.Any(x => x.Id == Item4Id && x.RPM == 2), "Item 4 doesn't have correct RPM");
             #endregion Assert
         }
     }
