@@ -1,3 +1,5 @@
+using App.Metrics.AspNetCore;
+using App.Metrics.Formatters.Prometheus;
 using DeepTownCalculator.Application;
 using DeepTownCalculator.Application.Interfaces;
 using DeepTownCalculator.Data.File.Repositories;
@@ -8,12 +10,22 @@ var builder = WebApplication.CreateBuilder(args);
 ConfigureRepositories(builder.Services);
 ConfigureServices(builder.Services);
 
+builder.Host.UseMetricsWebTracking()
+    .UseMetrics( (options) => {
+        options.EndpointOptions = endpointOptions =>
+            {
+                endpointOptions.MetricsTextEndpointOutputFormatter = new MetricsPrometheusTextOutputFormatter();
+                endpointOptions.MetricsEndpointOutputFormatter = new MetricsPrometheusProtobufOutputFormatter();
+                endpointOptions.EnvironmentInfoEndpointEnabled = false;
+            };
+    });
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<ICalculatorService, CalculatorService>();
 
 var app = builder.Build();
+
 
 if (app.Environment.IsDevelopment())
 {
@@ -39,4 +51,6 @@ void ConfigureRepositories(IServiceCollection services)
 {
     services.AddSingleton<IAreaRepository, AreaRepository>();
     services.AddSingleton<IExtractorsRepository, ExtractorsRepository>();
+    services.AddSingleton<IRecipesRepository, RecipesRepository>();
+    services.AddSingleton<IBuildingsRepository, BuildingsRepository>();
 }
